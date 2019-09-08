@@ -1,9 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
-import CamView from "./components/CamView";
-import NoCamAccess from "./components/NoCamAccess";
 
 export default class App extends React.Component {
   state = {
@@ -15,9 +13,7 @@ export default class App extends React.Component {
   openCamera = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     if (status === "granted") {
-      this.setState({ cameraPermission: true, isCamera: true }, () =>
-        console.log("Camera open time state", this.state)
-      );
+      this.setState({ cameraPermission: true, isCamera: true });
     } else {
       this.setState({ cameraPermission: false, isCamera: false });
     }
@@ -25,9 +21,7 @@ export default class App extends React.Component {
 
   getSnap = async () => {
     const photo = await this.camera.Permissions.takePictureAsync();
-    this.setState({ photo: photo.uri, isCamera: false }, () =>
-      console.log("Snap time state", this.state)
-    );
+    this.setState({ photo: photo.uri, isCamera: false });
   };
 
   render() {
